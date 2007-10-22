@@ -1,0 +1,8 @@
+/* request_certificate */
+NONE:POINTER,INT,POINTER,INT,INT,POINTER,POINTER
+/* sign_data */
+NONE:POINTER,INT,POINTER,POINTER
+/* notify_certificate_presented */
+NONE:INT,POINTER,INT
+/* notify_data_signed */
+NONE:INT,POINTER

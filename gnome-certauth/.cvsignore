@@ -1,0 +1,10 @@
+.deps
+.dirstamp
+.libs
+CertificateAuthentication-common.c
+CertificateAuthentication-skels.c
+CertificateAuthentication-stubs.c
+CertificateAuthentication.h
+Makefile
+Makefile.in
+

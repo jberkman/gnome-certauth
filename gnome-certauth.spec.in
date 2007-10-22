@@ -1,0 +1,65 @@
+Summary: Easy Certificate Authentication for Gnome
+Name: gnome-certauth
+Version: @VERSION@
+Release: 1
+License: GPL
+Group: System/Libraries
+URL: http://code.google.com/p/gnome-certauth/
+Source0: http://gnome-certauth.googlecode.com/files/%{name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+
+BuildRequires: pkgconfig gnutls-devel libbonobo-devel
+
+%if 0%{?suse_version} >= 1010
+BuildRequires: mozilla-nspr-devel mozilla-nss-devel
+%endif
+
+%if 0%{?fedora_version} == 6
+BuildRequires: nss-devel nspr-devel
+%endif
+
+%description
+Gnome Certificate Authentication provides a mechanism for Evolution to
+authenticate against using SSL Certificates.
+
+%debug_package
+%package devel
+Group: Development/Libraries
+Summary: Development files for  Gnome Certificate Authentication
+Requires: %{name} = %{version}
+
+%description devel
+This package contains the headers and libraries required to build
+applications using Gnome Certificate Authentication
+
+%prep
+%setup -q
+
+%build
+%configure
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+%makeinstall
+rm -f $RPM_BUILD_ROOT%{_libdir}/libgnome-certauth*.la
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+%doc
+%{_libdir}/libgnome-certauth*.so.*
+
+%files devel
+%{_libdir}/libgnome-certauth*.a
+%{_libdir}/libgnome-certauth*.so
+# %{_libdir}/libgnome-certauth*.la
+%{_includedir}/gnome-certauth-0.0/gnome-certauth
+%{_libdir}/pkgconfig/gnome-certauth-0.0.pc
+
+%changelog
+* Fri Apr  6 2007 jacob berkman <jberkman@novell.com> - certauth-1
+- Initial build.
+

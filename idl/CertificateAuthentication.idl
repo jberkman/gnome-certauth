@@ -1,0 +1,30 @@
+#ifndef _GNOME_CERTIFICATEAUTHENTICATION_IDL_
+#define _GNOME_CERTIFICATEAUTHENTICATION_IDL_
+
+#include <Bonobo_Unknown.idl>
+
+module GNOME {
+module CertificateAuthentication {
+
+	typedef sequence<char> Data;
+	typedef sequence<Data> DataList;
+
+	interface CertificateListener : Bonobo::Unknown {
+		oneway void notifyCertificatePresented (in long opid, in DataList certificates);
+		oneway void notifyDataSigned (in long opid, in Data signature);
+	};
+
+	interface CertificateSource : Bonobo::Unknown {
+		oneway void requestCertificate (in CertificateListener listener,
+						in long opid, 
+						in DataList reqCaRdn);
+
+		oneway void signData (in CertificateListener listener,
+				      in long opid,
+				      in Data certificate,
+				      in Data hashData);
+	};
+};
+};
+
+#endif /* _GNOME_CERTIFICATEAUTHENTICATION_IDL_ */
